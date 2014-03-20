@@ -59,6 +59,10 @@ class SaveWithoutTrailingSpacePlugin(GObject.Object, Gedit.ViewActivatable):
 
         text = self.doc.get_text(self.doc.get_start_iter(), self.doc.get_end_iter(), False)
 
+        lang = self.doc.get_language()
+        if lang != None and lang.get_name() == "Markdown":
+             return
+
         compiledpattern = re.compile('.*?([ \t]+)$', flags=re.MULTILINE)
 
         start_iter = self.doc.get_start_iter()
